@@ -1,0 +1,21 @@
+node {
+ checkout scm
+
+ docker.image('maven:3.6.2-jdk-8-slim').inside {
+  stage('Build') {
+   sh 'mvn package'
+  }
+ }
+
+ stage('Deploy to Docker Hub') {
+  docker.withTool('Docker') {
+   docker.withRegistry('', 'DockerHub') {
+    script {
+     imageName = "selcukusta/labs-sample-alternative:${env.BUILD_ID}"
+    }
+    def customImage = docker.build("${imageName}", "-f alternative.Dockerfile .")
+    customImage.push()
+   }
+  }
+ }
+}

@@ -1,0 +1,12 @@
+node {
+ checkout scm
+ docker.withTool('Docker') {
+  docker.withRegistry('', 'DockerHub') {
+   script {
+    imageName = "selcukusta/labs-sample:${env.BUILD_ID}"
+   }
+   def customImage = docker.build("${imageName}", "-f main.Dockerfile .")
+   customImage.push()
+  }
+ }
+}

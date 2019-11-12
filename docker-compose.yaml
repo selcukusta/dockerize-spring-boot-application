@@ -1,0 +1,14 @@
+version: "3"
+services:
+  spring-boot-db:
+    image: mongo:3.6.15-xenial
+    ports:
+      - "27017:27017"
+
+  spring-boot-app:
+    image: selcukusta/sample-labs:1.0.0
+    ports:
+      - "8080:8080"
+    environment:
+      - SPRING_DATA_MONGODB_HOST=spring-boot-db
+      - SPRING_DATA_MONGODB_DATABASE=Employee

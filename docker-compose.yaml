@@ -6,7 +6,7 @@ services:
       - "27017:27017"
 
   spring-boot-app:
-    image: selcukusta/sample-labs:1.0.0
+    image: selcukusta/labs-sample:1.0.0
     ports:
       - "8080:8080"
     environment:
